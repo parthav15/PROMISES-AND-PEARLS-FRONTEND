@@ -15,6 +15,9 @@ import PredictionPage from './pages/PredictionPage';
 
 import EventsPage from './pages/EventsPage';
 import EventDetailPage from './pages/EventDetailPage';
+import PaymentSummaryPage from './pages/PaymentSummaryPage';
+import PreBookPage from './pages/PreBookPage';
+import BookingConfirmed from './pages/BookingConfimred';
 
 function App() {
   return (
@@ -33,6 +36,9 @@ function App() {
 
         <Route path='/events' element={<EventsPage />} />
         <Route path='/event_detail/' element={<EventDetailPage />} />
+        <Route path="/pre-book" element={<PreBookPage />} />
+        <Route path="/payment" element={<PaymentSummaryPage />} />
+        <Route path='/booking-confirmed' element={<BookingConfirmed />} />
 
         <Route path="/predict" element={<PredictionPage />} />
 

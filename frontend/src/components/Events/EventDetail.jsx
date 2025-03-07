@@ -8,6 +8,7 @@ import {
   Mail, Phone, Calendar, MapPin, 
   CreditCard, User, Ticket, ArrowRight, Link2
 } from "lucide-react";
+import { BASE_URL } from "../../config";
 
 const EventDetail = () => {
   const location = useLocation();
@@ -21,7 +22,7 @@ const EventDetail = () => {
       try {
         if (!eventId) throw new Error("No event ID provided.");
         const response = await axios.get(
-          `http://localhost:8000/events/get_specific_public_event/?event_id=${eventId}`
+          `${BASE_URL}events/get_specific_public_event/?event_id=${eventId}`
         );
         if (!response.data.success) throw new Error(response.data.message);
         setEventData(response.data.data);
@@ -37,8 +38,23 @@ const EventDetail = () => {
 
   if (loading) return <LoadingSpinner />;
   if (error || !eventData) return <ErrorDisplay error={error} />;
-
-  const mediaItems = [...eventData.images, ...eventData.videos];
+  const {
+    id,
+    title,
+    description,
+    event_type,
+    start_date,
+    end_date,
+    event_price,
+    max_attendees,
+    organizer,
+    images,
+    videos,
+  } = eventData;
+  const mediaItems = [
+    ...images.map((image) => `${BASE_URL}${image.url}`),
+    ...videos.map((video) => `${BASE_URL}${video.url}`),
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
@@ -89,20 +105,24 @@ const EventDetail = () => {
                     <div className="text-2xl text-gray-300 mb-2">Starting at</div>
                     <div className="flex items-baseline space-x-3">
                       <span className="text-6xl font-bold bg-gradient-to-r from-rose-400 to-purple-400 bg-clip-text text-transparent">
-                        ${eventData.event_price}
+                        {new Intl.NumberFormat('en-IN').format(eventData.event_price)} Rs
                       </span>
                       <span className="text-gray-400">/ person</span>
                     </div>
                   </div>
-                  <button className="group relative px-8 py-4 bg-gradient-to-r from-rose-500 to-purple-500 rounded-xl flex items-center space-x-2 hover:from-rose-600 hover:to-purple-600 transition-all">
+                  <Link 
+                    to="/pre-book" 
+                    state={{ eventId: id }}
+                    className="group relative px-8 py-4 bg-gradient-to-r from-rose-500 to-purple-500 rounded-xl flex items-center space-x-2 hover:from-rose-600 hover:to-purple-600 transition-all"
+                  >
                     <span className="text-white font-semibold text-lg">Book Now</span>
                     <ArrowRight className="w-5 h-5 text-white transform group-hover:translate-x-1 transition-transform" />
                     <div className="absolute inset-0 shadow-lg shadow-rose-500/30 rounded-xl" />
-                  </button>
+                  </Link>
                 </div>
                 <div className="mt-4 flex items-center space-x-2 text-sm text-gray-400">
                   <CreditCard className="w-4 h-4" />
-                  <span>Secure payment with Stripe</span>
+                  <span>Secure payment with RazorPay</span>
                 </div>
               </div>
             </div>
@@ -156,7 +176,7 @@ const EventDetail = () => {
           <div className="h-96 w-full">
             <iframe
               className="w-full h-full"
-              src={`https://www.google.com/maps/embed/v1/place?key=YOUR_KEY&q=${eventData.location}`}
+              src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDIIydfxdqoslmjtw_tdYjO4Fo4zRp1DwE&q=${eventData.location}`}
             />
           </div>
         </div>
@@ -202,7 +222,7 @@ const MiniMap = ({ location }) => (
   <div className="mt-4 h-32 rounded-lg overflow-hidden">
     <iframe
       className="w-full h-full"
-      src={`https://www.google.com/maps/embed/v1/place?key=YOUR_KEY&q=${location}&zoom=15`}
+      src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDIIydfxdqoslmjtw_tdYjO4Fo4zRp1DwE&q=${location}&zoom=15`}
     />
   </div>
 );

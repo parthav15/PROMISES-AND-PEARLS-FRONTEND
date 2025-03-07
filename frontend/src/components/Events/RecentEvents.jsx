@@ -10,9 +10,9 @@ const RecentEvents = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  // Fetch public events on component mount
   useEffect(() => {
     const fetchEvents = async () => {
+      setLoading(true);
       try {
         const response = await fetch(`${BASE_URL}events/get_public_events/`);
         const result = await response.json();

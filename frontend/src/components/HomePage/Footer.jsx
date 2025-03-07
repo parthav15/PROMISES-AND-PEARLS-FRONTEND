@@ -1,134 +1,155 @@
-import { motion } from "framer-motion";
-import { Heart, Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Gem, Heart, Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin, ArrowRight, Sparkles } from "lucide-react";
 
 const Footer = () => {
-  return (
-    <footer className="relative bg-gradient-to-br from-slate-800 to-purple-800 pt-24 pb-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
-      {/* Animated Diagonal Lines */}
-      <div className="absolute inset-0">
-        {[...Array(10)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-full bg-gradient-to-b from-transparent via-purple-400 to-transparent opacity-30"
-            initial={{ x: -200 }}
-            animate={{ x: 200 }}
-            transition={{
-              duration: 15 + i,
-              repeat: Infinity,
-              repeatType: "mirror",
-              ease: "linear",
-            }}
-            style={{
-              left: `${i * 10}%`,
-              transform: "rotate(45deg)",
-            }}
-          />
-        ))}
-      </div>
+  const socialLinks = [
+    { icon: <Facebook />, color: "#1877F2", name: "Facebook" },
+    { icon: <Twitter />, color: "#1DA1F2", name: "Twitter" },
+    { icon: <Instagram />, color: "#E1306C", name: "Instagram" },
+    { icon: <Linkedin />, color: "#0A66C2", name: "LinkedIn" },
+  ];
 
-      <div className="relative z-10 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-          {/* About Section */}
+  return (
+    <footer className="relative bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 pt-24 pb-12 overflow-hidden border-t border-purple-900/50">
+      <AnimatePresence>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="absolute inset-0 bg-[url('/grid.svg')] bg-repeat opacity-10 mix-blend-soft-light" 
+        />
+      </AnimatePresence>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 mb-16">
+          {/* Brand Section */}
           <div className="space-y-6">
-            <div className="flex items-center gap-2">
-              <Heart className="h-8 w-8 text-rose-500" />
-              <span className="text-2xl font-bold text-white">
-                Promises & Pearls<span className="text-purple-300"> ✨</span>
+            <motion.div 
+              whileHover={{ scale: 1.05 }}
+              className="flex items-center gap-3 group">
+              <div className="p-2 rounded-xl bg-gradient-to-br from-rose-500 to-purple-600 shadow-lg">
+                <Gem className="h-6 w-6 text-white" />
+              </div>
+              <span className="text-2xl font-bold bg-gradient-to-r from-rose-400 to-purple-400 bg-clip-text text-transparent">
+                Promises & Pearls
               </span>
-            </div>
-            <p className="text-gray-300 text-sm">
-              We connect hearts and minds to foster a vibrant community of innovators and dreamers. Explore experiences that inspire.
+              <Sparkles className="h-5 w-5 text-purple-300 opacity-0 group-hover:opacity-100 transition-opacity" />
+            </motion.div>
+            <p className="text-gray-300 text-sm leading-relaxed">
+              Crafting unforgettable experiences where dreams meet reality. Join our vibrant community of visionaries and creators.
             </p>
-            <div className="flex space-x-3">
-              <a href="#" aria-label="Facebook" className="text-gray-400 hover:text-purple-300 transition-colors">
-                <Facebook size={20} />
-              </a>
-              <a href="#" aria-label="Twitter" className="text-gray-400 hover:text-purple-300 transition-colors">
-                <Twitter size={20} />
-              </a>
-              <a href="#" aria-label="Instagram" className="text-gray-400 hover:text-purple-300 transition-colors">
-                <Instagram size={20} />
-              </a>
-              <a href="#" aria-label="LinkedIn" className="text-gray-400 hover:text-purple-300 transition-colors">
-                <Linkedin size={20} />
-              </a>
+            <div className="flex gap-4">
+              {socialLinks.map((link, index) => (
+                <motion.a
+                  key={link.name}
+                  href="#"
+                  whileHover={{ y: -4 }}
+                  className="p-2 rounded-full bg-white/5 backdrop-blur-lg border border-white/10 hover:border-purple-400/30 transition-all"
+                  style={{ color: link.color }}>
+                  {link.icon}
+                </motion.a>
+              ))}
             </div>
           </div>
 
-          {/* Resources Section */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-white">Resources</h3>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <a href="#" className="text-gray-300 hover:text-purple-300 transition-colors">
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-300 hover:text-purple-300 transition-colors">
-                  FAQs
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-300 hover:text-purple-300 transition-colors">
-                  Help Center
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-300 hover:text-purple-300 transition-colors">
-                  Support
-                </a>
-              </li>
-            </ul>
+          {/* Navigation Links */}
+          <div className="space-y-6">
+            <h3 className="text-lg font-semibold text-white mb-4">Explore</h3>
+            <div className="grid grid-cols-2 gap-4">
+              {['Events', 'Organize', 'Community', 'Blog', 'FAQs', 'Support'].map((item) => (
+                <motion.a
+                  key={item}
+                  href="#"
+                  whileHover={{ x: 5 }}
+                  className="flex items-center gap-2 text-gray-300 hover:text-purple-300 text-sm group">
+                  <ArrowRight className="h-4 w-4 text-transparent group-hover:text-purple-400 transition-colors" />
+                  {item}
+                </motion.a>
+              ))}
+            </div>
           </div>
 
           {/* Contact Section */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-white">Contact</h3>
-            <ul className="space-y-3 text-sm">
-              <li className="flex items-center gap-2">
-                <MapPin className="h-5 w-5 text-purple-300" />
-                <span className="text-gray-300">1234 Innovation Drive, Suite 100</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Phone className="h-5 w-5 text-rose-400" />
-                <span className="text-gray-300">+1 (800) 987-6543</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Mail className="h-5 w-5 text-yellow-400" />
-                <span className="text-gray-300">info@promisesandpearls.com</span>
-              </li>
-            </ul>
+          <div className="space-y-6">
+            <h3 className="text-lg font-semibold text-white mb-4">Connect</h3>
+            <div className="space-y-4">
+              <motion.div whileHover={{ x: 5 }} className="flex items-center gap-3">
+                <div className="p-2 rounded-lg bg-purple-900/30">
+                  <MapPin className="h-5 w-5 text-purple-400" />
+                </div>
+                <span className="text-gray-300 text-sm">123 Innovation Blvd</span>
+              </motion.div>
+              <motion.div whileHover={{ x: 5 }} className="flex items-center gap-3">
+                <div className="p-2 rounded-lg bg-rose-900/30">
+                  <Phone className="h-5 w-5 text-rose-400" />
+                </div>
+                <span className="text-gray-300 text-sm">+1 (800) 987-6543</span>
+              </motion.div>
+              <motion.div whileHover={{ x: 5 }} className="flex items-center gap-3">
+                <div className="p-2 rounded-lg bg-amber-900/30">
+                  <Mail className="h-5 w-5 text-amber-400" />
+                </div>
+                <span className="text-gray-300 text-sm">hello@promisespearls.com</span>
+              </motion.div>
+            </div>
           </div>
 
           {/* Newsletter Section */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-white">Newsletter</h3>
+          <div className="space-y-6">
+            <h3 className="text-lg font-semibold text-white mb-4">Stay Updated</h3>
             <p className="text-gray-300 text-sm">
-              Stay updated with the latest news and exclusive offers from our community.
+              Join our newsletter for exclusive updates and early access to premium experiences.
             </p>
-            <form className="flex gap-2">
+            <motion.form 
+              whileHover={{ scale: 1.02 }}
+              className="relative group">
               <input
                 type="email"
-                placeholder="Your email"
-                className="flex-1 bg-white/10 border border-white/20 rounded-md px-3 py-2 text-gray-200 text-sm focus:outline-none focus:border-purple-300 focus:ring-1 focus:ring-purple-300"
+                placeholder="Enter your email"
+                className="w-full px-4 py-3 rounded-xl bg-white/5 backdrop-blur-lg border border-white/10 focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 text-gray-200 placeholder-gray-400 transition-all"
               />
-              <button
-                type="submit"
-                className="bg-purple-600 hover:bg-purple-700 text-white text-sm px-3 py-2 rounded-md transition-colors"
-              >
-                Subscribe
-              </button>
-            </form>
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className="absolute right-2 top-2 bg-gradient-to-br from-rose-500 to-purple-600 p-2 rounded-lg shadow-lg hover:shadow-purple-500/20 transition-all">
+                <ArrowRight className="h-5 w-5 text-white" />
+              </motion.button>
+            </motion.form>
           </div>
         </div>
 
-        {/* Footer Bottom */}
-        <div className="border-t border-white/20 pt-6 text-center">
-          <p className="text-gray-400 text-xs">
-            © {new Date().getFullYear()} Promises & Pearls. All rights reserved. Crafted with passion for a connected future.
+        {/* Copyright Section */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="border-t border-white/10 pt-8 text-center">
+          <p className="text-gray-400 text-xs font-light">
+            © {new Date().getFullYear()} Promises & Pearls. Crafted with passion in New York.<br />
+            <span className="opacity-70">Part of the Visionary Experiences Group</span>
           </p>
-        </div>
+        </motion.div>
+
+        {/* Floating Particles */}
+        <AnimatePresence>
+          {[...Array(15)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 0.3, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{
+                duration: 2 + Math.random() * 5,
+                repeat: Infinity,
+                repeatType: 'mirror',
+                ease: 'easeInOut'
+              }}
+              className="absolute w-1 h-1 bg-purple-400 rounded-full"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+            />
+          ))}
+        </AnimatePresence>
       </div>
     </footer>
   );
