@@ -13,6 +13,9 @@ import PostDetail from './components/Community/PostDetail';
 
 import PredictionPage from './pages/PredictionPage';
 
+import EventsPage from './pages/EventsPage';
+import EventDetailPage from './pages/EventDetailPage';
+
 function App() {
   return (
     <Router>
@@ -27,6 +30,9 @@ function App() {
         <Route path="/community" element={<CommunityPage />} />
         <Route path="/community/new-post" element={<NewPost />} />
         <Route path="/community/posts/:id" element={<PostDetail />} />
+
+        <Route path='/events' element={<EventsPage />} />
+        <Route path='/event_detail/' element={<EventDetailPage />} />
 
         <Route path="/predict" element={<PredictionPage />} />
 
