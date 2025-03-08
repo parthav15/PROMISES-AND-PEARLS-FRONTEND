@@ -120,7 +120,7 @@ const DashboardPage = () => {
                     {item.icon}
                   </span>
                   <span>{item.label}</span>
-                  <Sparkles className="absolute -right-2 opacity-0 group-hover:opacity-100 transition-opacity w-5 h-5 text-amber-400 animate-pulse" />
+                  <Sparkles className="absolute right-4 opacity-0 group-hover:opacity-100 transition-opacity w-5 h-5 text-amber-400 animate-pulse" />
                 </motion.button>
               ))}
 
