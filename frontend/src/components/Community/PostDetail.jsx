@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import { ArrowUturnLeftIcon, ChatBubbleLeftIcon, HeartIcon } from "@heroicons/react/24/outline";
+import { ArrowLeft, MessageCircle, Heart, Gem, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "../HomePage/Navbar";
 import Footer from "../HomePage/Footer";
@@ -98,21 +98,47 @@ const PostDetail = () => {
         setReply(prev => ({ ...prev, [commentId]: "" }));
     };
 
-    if (loading) return <p className="text-center mt-5 text-gray-400">Loading...</p>;
-    if (!post) return <p className="text-center mt-5 text-gray-400">Post not found.</p>;
+    if (loading) return <p className="text-center mt-5 text-purple-300">Curating post...</p>;
+    if (!post) return <p className="text-center mt-5 text-purple-300">Experience not found</p>;
 
     return (
         <>
             <Navbar />
-            <main className="flex-grow min-h-screen w-full px-4 md:px-10 py-6 bg-gradient-to-br from-blue-900 to-purple-900 overflow-auto">
+            <main className="flex-grow min-h-screen w-full px-4 md:px-10 py-6 bg-gradient-to-br from-slate-900 to-purple-900 overflow-auto relative">
+                {/* Floating Gems */}
+                <div className="absolute inset-0 opacity-20 pointer-events-none">
+                    {[...Array(15)].map((_, i) => (
+                        <motion.div
+                            key={i}
+                            className="absolute w-2 h-2 bg-amber-400 rounded-full"
+                            animate={{
+                                x: [0, 100, 0],
+                                y: [0, 50, 0],
+                                opacity: [0, 0.5, 0],
+                                scale: [0, 1, 0]
+                            }}
+                            transition={{
+                                duration: Math.random() * 10 + 8,
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                            }}
+                            style={{
+                                left: `${Math.random() * 100}%`,
+                                top: `${Math.random() * 100}%`,
+                                boxShadow: '0 0 15px rgba(245, 158, 11, 0.3)'
+                            }}
+                        />
+                    ))}
+                </div>
+
                 <motion.button
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="text-blue-400 mb-4 hover:text-blue-300 flex items-center gap-2"
+                    className="text-amber-400 mb-4 hover:text-amber-300 flex items-center gap-2"
                     onClick={() => navigate("/community")}
                 >
-                    <ArrowUturnLeftIcon className="w-5 h-5" />
-                    Back to discussions
+                    <ArrowLeft className="w-5 h-5" />
+                    Return to Collective
                 </motion.button>
 
                 <motion.div
@@ -121,26 +147,35 @@ const PostDetail = () => {
                     className="space-y-6 mt-10"
                 >
                     <div className="flex items-center gap-4">
-                        <HeartIcon className="h-8 w-8 text-red-500" />
-                        <h1 className="text-3xl font-bold text-white">{post.post.title}</h1>
+                        <div className="p-2 bg-amber-400/20 rounded-lg">
+                            <Gem className="h-8 w-8 text-amber-400" strokeWidth={1.5} />
+                        </div>
+                        <h1 className="text-3xl font-bold bg-gradient-to-r from-amber-400 to-purple-400 bg-clip-text text-transparent">
+                            {post.post.title}
+                        </h1>
                     </div>
 
-                    <div className="flex items-center gap-4 text-gray-300">
+                    <div className="flex items-center gap-4 text-purple-300">
                         <span className="text-sm">
-                            {new Date(post.post.created_at).toLocaleString()}
+                            {new Date(post.post.created_at).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric'
+                            })}
                         </span>
-                        <span className="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm">
-                            Community Discussion
+                        <span className="px-3 py-1 bg-amber-500/20 text-amber-400 rounded-full text-sm">
+                            VIP Experience
                         </span>
                     </div>
 
                     <motion.div
-                        className="p-6 bg-white/5 backdrop-blur-lg rounded-xl border border-white/10"
+                        className="p-6 bg-white/5 backdrop-blur-lg rounded-xl border border-white/10 relative overflow-hidden"
                         initial={{ scale: 0.95 }}
                         animate={{ scale: 1 }}
                         transition={{ duration: 0.3 }}
                     >
-                        <p className="text-gray-200 leading-relaxed">{post.post.content}</p>
+                        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-amber-500/10 opacity-0 hover:opacity-20 transition-opacity" />
+                        <p className="text-purple-200 leading-relaxed">{post.post.content}</p>
                         {post.post.image && (
                             <motion.div
                                 className="mt-6 overflow-hidden rounded-xl"
@@ -150,7 +185,7 @@ const PostDetail = () => {
                                 <img
                                     src={`${BASE_URL}${post.post.image}`}
                                     alt="Post"
-                                    className="w-full max-w-2xl h-96 object-cover rounded-xl"
+                                    className="w-full max-w-2xl h-96 object-cover rounded-xl transform transition-transform hover:scale-105"
                                 />
                             </motion.div>
                         )}
@@ -158,10 +193,10 @@ const PostDetail = () => {
 
                     {post.post.user && (
                         <div className="flex items-center gap-3 p-4 bg-white/5 backdrop-blur-lg rounded-lg border border-white/10">
-                            <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
-                                <ChatBubbleLeftIcon className="w-5 h-5 text-blue-400" />
+                            <div className="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center">
+                                <Sparkles className="w-5 h-5 text-amber-400" />
                             </div>
-                            <p className="text-gray-300">Posted by {post.post.user}</p>
+                            <p className="text-purple-300">Shared by {post.post.user}</p>
                         </div>
                     )}
                 </motion.div>
@@ -174,19 +209,20 @@ const PostDetail = () => {
                     animate="visible"
                 >
                     <h2 className="text-2xl font-semibold text-white mb-6 flex items-center gap-3">
-                        <ChatBubbleLeftIcon className="w-6 h-6 text-blue-400" />
-                        Community Responses
+                        <Gem className="w-6 h-6 text-amber-400" />
+                        Collective Insights
                     </h2>
 
                     <motion.div className="space-y-4" variants={containerVariants}>
                         <motion.div
-                            className="p-4 bg-white/5 backdrop-blur-lg rounded-xl border border-white/10"
+                            className="p-4 bg-white/5 backdrop-blur-lg rounded-xl border border-white/10 relative"
                             variants={itemVariants}
                         >
+                            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-amber-500/10 opacity-0 hover:opacity-20 transition-opacity" />
                             <textarea
-                                className="w-full p-3 bg-white/10 text-gray-200 rounded-lg focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400/30 placeholder-gray-400"
+                                className="w-full p-3 bg-white/5 text-purple-200 rounded-lg focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400/30 placeholder-purple-300/50"
                                 rows="3"
-                                placeholder="Share your thoughts..."
+                                placeholder="Share your refined perspective..."
                                 value={comment}
                                 onChange={(e) => setComment(e.target.value)}
                             />
@@ -194,9 +230,11 @@ const PostDetail = () => {
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                                 onClick={handleCommentSubmit}
-                                className="mt-3 px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all"
+                                className="mt-3 px-6 py-2 bg-gradient-to-r from-amber-600 to-purple-600 text-white rounded-lg hover:from-amber-700 hover:to-purple-700 transition-all relative"
                             >
-                                Post Response
+                                <Sparkles className="w-4 h-4 absolute left-4 top-3 animate-pulse" />
+                                Share Perspective
+                                <Sparkles className="w-4 h-4 absolute right-4 top-3 animate-pulse" />
                             </motion.button>
                         </motion.div>
 
@@ -205,29 +243,28 @@ const PostDetail = () => {
                                 post.comments.map((c) => (
                                     <motion.div
                                         key={c.id}
-                                        className="bg-white/5 backdrop-blur-lg rounded-xl p-4 border border-white/10"
+                                        className="bg-white/5 backdrop-blur-lg rounded-xl p-4 border border-white/10 group relative overflow-hidden"
                                         variants={itemVariants}
                                         exit={{ opacity: 0, height: 0 }}
                                     >
+                                        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-amber-500/10 opacity-0 group-hover:opacity-20 transition-opacity" />
                                         <div className="flex gap-4">
-                                            <img
-                                                src={`https://api.dicebear.com/9.x/initials/svg?seed=${c.user}&background=%231e40af&color=white`}
-                                                alt={c.user}
-                                                className="w-12 h-12 rounded-full"
-                                            />
+                                            <div className="w-12 h-12 rounded-full bg-amber-500/20 flex items-center justify-center">
+                                                <Gem className="w-5 h-5 text-amber-400" />
+                                            </div>
                                             <div className="flex-1">
                                                 <div className="flex items-center justify-between">
-                                                    <p className="font-medium text-blue-400">{c.user}</p>
+                                                    <p className="font-medium text-amber-400">{c.user}</p>
                                                     <motion.button
                                                         whileHover={{ scale: 1.1 }}
                                                         onClick={() => toggleReplyInput(c.id)}
-                                                        className="text-gray-400 hover:text-blue-400 flex items-center gap-1"
+                                                        className="text-purple-300 hover:text-amber-400 flex items-center gap-1"
                                                     >
-                                                        <ArrowUturnLeftIcon className="w-5 h-5" />
-                                                        <span className="text-sm">Reply</span>
+                                                        <ArrowLeft className="w-5 h-5 rotate-180" />
+                                                        <span className="text-sm">Respond</span>
                                                     </motion.button>
                                                 </div>
-                                                <p className="mt-1 text-gray-300">{c.content}</p>
+                                                <p className="mt-1 text-purple-200">{c.content}</p>
 
                                                 {/* Reply Input */}
                                                 <AnimatePresence>
@@ -239,9 +276,9 @@ const PostDetail = () => {
                                                             className="mt-4 pl-8 border-l-2 border-white/10"
                                                         >
                                                             <textarea
-                                                                className="w-full p-2 bg-white/10 text-gray-200 rounded-lg focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400/30 placeholder-gray-400"
+                                                                className="w-full p-2 bg-white/5 text-purple-200 rounded-lg focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400/30 placeholder-purple-300/50"
                                                                 rows="2"
-                                                                placeholder="Write your reply..."
+                                                                placeholder="Craft your response..."
                                                                 value={reply[c.id] || ""}
                                                                 onChange={(e) => setReply(prev => ({ ...prev, [c.id]: e.target.value }))}
                                                             />
@@ -250,15 +287,15 @@ const PostDetail = () => {
                                                                     whileHover={{ scale: 1.05 }}
                                                                     whileTap={{ scale: 0.95 }}
                                                                     onClick={() => handleReplySubmit(c.id)}
-                                                                    className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg"
+                                                                    className="px-4 py-2 bg-gradient-to-r from-amber-600 to-purple-600 text-white rounded-lg"
                                                                 >
-                                                                    Post Reply
+                                                                    Post Response
                                                                 </motion.button>
                                                                 <motion.button
                                                                     whileHover={{ scale: 1.05 }}
                                                                     whileTap={{ scale: 0.95 }}
                                                                     onClick={() => toggleReplyInput(c.id)}
-                                                                    className="px-4 py-2 border border-white/20 text-gray-300 rounded-lg"
+                                                                    className="px-4 py-2 border border-white/20 text-purple-300 rounded-lg"
                                                                 >
                                                                     Cancel
                                                                 </motion.button>
@@ -277,16 +314,14 @@ const PostDetail = () => {
                                                                 initial={{ opacity: 0 }}
                                                                 animate={{ opacity: 1 }}
                                                             >
-                                                                <img
-                                                                    src={`https://api.dicebear.com/9.x/initials/svg?seed=${reply.user}&background=%231e40af&color=white`}
-                                                                    alt={reply.user}
-                                                                    className="w-10 h-10 rounded-full"
-                                                                />
+                                                                <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center">
+                                                                    <Sparkles className="w-5 h-5 text-purple-400" />
+                                                                </div>
                                                                 <div>
-                                                                    <p className="text-sm font-medium text-blue-400">
+                                                                    <p className="text-sm font-medium text-amber-400">
                                                                         {reply.user}
                                                                     </p>
-                                                                    <p className="text-gray-300 text-sm">{reply.content}</p>
+                                                                    <p className="text-purple-300 text-sm">{reply.content}</p>
                                                                 </div>
                                                             </motion.div>
                                                         ))}
@@ -298,11 +333,11 @@ const PostDetail = () => {
                                 ))
                             ) : (
                                 <motion.p
-                                    className="text-gray-400 text-center py-6"
+                                    className="text-purple-300 text-center py-6"
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                 >
-                                    No responses yet. Start the conversation!
+                                    No insights yet. Illuminate the conversation!
                                 </motion.p>
                             )}
                         </AnimatePresence>

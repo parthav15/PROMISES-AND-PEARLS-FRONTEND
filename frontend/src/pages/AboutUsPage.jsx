@@ -1,94 +1,105 @@
 import { motion } from 'framer-motion';
-import { HeartIcon, UserGroupIcon, ChartBarIcon, AcademicCapIcon } from '@heroicons/react/24/outline';
+import { Sparkles, Ticket, Heart, Users, Gem } from 'lucide-react';
 import Navbar from '../components/HomePage/Navbar';
 import Footer from '../components/HomePage/Footer';
 
 const AboutUs = () => {
   const teamMembers = [
-    { name: 'Dr. Rajesh Sharma', role: 'Lead Cardiologist', exp: '15+ years' },
-    { name: 'Dr. Priya Singh', role: 'AI Research Head', exp: 'PhD in ML' },
-    { name: 'Arjun Mehta', role: 'Full Stack Developer', exp: 'HealthTech Expert' },
-    { name: 'Ananya Reddy', role: 'Patient Care Lead', exp: '10+ years' },
+    { name: 'Aarav Sharma', role: 'Creative Director', exp: '10+ years in luxury events' },
+    { name: 'Priya Kapoor', role: 'Lead Designer', exp: 'Expert in thematic storytelling' },
+    { name: 'Rohan Mehra', role: 'Client Relations', exp: '5-star hospitality background' },
+    { name: 'Ananya Reddy', role: 'Master Jeweler', exp: '3rd generation craftsman' },
   ];
 
   const stats = [
-    { number: '50K+', label: 'Lives Impacted' },
-    { number: '92%', label: 'Prediction Accuracy' },
-    { number: '150+', label: 'Medical Partners' },
-    { number: '24/7', label: 'Support Available' },
+    { number: '1K+', label: 'Events Curated' },
+    { number: '98%', label: 'Client Satisfaction' },
+    { number: '50+', label: 'Award Wins' },
+    { number: '5M', label: 'Memories Created' },
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 to-purple-900">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       <Navbar />
       
       {/* Hero Section */}
       <motion.section 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="relative py-20 px-6 text-center overflow-hidden"
+        className="relative py-28 px-6 text-center overflow-hidden"
       >
         <div className="max-w-6xl mx-auto">
           <motion.div
-            initial={{ y: 20 }}
-            animate={{ y: 0 }}
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
             className="inline-block mb-8"
           >
-            <HeartIcon className="h-16 w-16 text-red-500 mx-auto" />
+            <Sparkles className="h-24 w-24 text-amber-400 mx-auto animate-pulse" />
           </motion.div>
           
           <motion.h1
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-400 to-red-400 bg-clip-text text-transparent mb-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-amber-400 to-purple-400 bg-clip-text text-transparent mb-6"
           >
-            Revolutionizing Cardiac Care Through AI
+            Crafting Unforgettable Moments
           </motion.h1>
           
           <motion.p
             initial={{ scale: 0.95 }}
             animate={{ scale: 1 }}
-            className="text-xl text-gray-300 max-w-3xl mx-auto mb-12"
+            className="text-xl text-purple-200 max-w-3xl mx-auto mb-12"
           >
-            At CardioCareAI, we combine medical expertise with cutting-edge artificial intelligence to deliver proactive heart health solutions for a healthier tomorrow.
+            At Promises & Pearls, we transform dreams into reality through exquisite event curation and bespoke jewelry design, creating timeless memories that glitter through generations.
           </motion.p>
 
-          {/* ECG Animation Line */}
-          <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-blue-900/50 to-transparent">
-            <motion.div
-              className="absolute top-0 w-24 h-1 bg-red-500"
-              animate={{
-                x: ["-100%", "100%"],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "linear"
-              }}
-              style={{
-                boxShadow: "0 0 8px rgba(239, 68, 68, 0.5)"
-              }}
-            />
+          {/* Floating Pearls Animation */}
+          <div className="absolute inset-0 pointer-events-none">
+            {[...Array(15)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-2 h-2 bg-white rounded-full"
+                initial={{
+                  opacity: 0,
+                  scale: 0,
+                  x: Math.random() * 100 - 50 + '%',
+                  y: Math.random() * 100 - 50 + '%'
+                }}
+                animate={{
+                  opacity: [0, 0.5, 0],
+                  scale: [0, 1, 0],
+                }}
+                transition={{
+                  duration: 4 + Math.random() * 4,
+                  repeat: Infinity,
+                  delay: Math.random() * 2
+                }}
+                style={{
+                  boxShadow: '0 0 15px rgba(245, 158, 11, 0.5)'
+                }}
+              />
+            ))}
           </div>
         </div>
       </motion.section>
 
-      {/* Mission Section */}
+      {/* Craftsmanship Section */}
       <section className="py-20 px-6 bg-white/5 backdrop-blur-lg">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
           <motion.div 
             initial={{ x: -50 }}
             whileInView={{ x: 0 }}
-            className="space-y-6"
+            className="space-y-6 relative"
           >
-            <h2 className="text-3xl font-bold text-white mb-6">Our Mission</h2>
+            <div className="absolute -top-8 -left-8 w-24 h-24 bg-purple-500/20 rounded-full blur-xl" />
+            <h2 className="text-3xl font-bold text-white mb-6">Our Artistry</h2>
             <p className="text-gray-300 text-lg leading-relaxed">
-              To democratize access to advanced cardiac care through AI-powered solutions that enable early detection, personalized treatment plans, and continuous health monitoring.
+              Every event and jewelry piece is a symphony of precision and passion. We blend traditional craftsmanship with modern innovation to create experiences that resonate with elegance and emotion.
             </p>
-            <div className="flex items-center gap-4 p-4 bg-white/10 rounded-xl">
-              <AcademicCapIcon className="h-12 w-12 text-blue-400" />
+            <div className="flex items-center gap-4 p-4 bg-white/10 rounded-xl border border-white/10">
+              <Gem className="h-12 w-12 text-amber-400" />
               <p className="text-gray-300">
-                Partnered with 15+ medical institutions for continuous research
+                500+ hours of meticulous planning in every flagship event
               </p>
             </div>
           </motion.div>
@@ -99,8 +110,8 @@ const AboutUs = () => {
             className="grid grid-cols-2 gap-4"
           >
             {stats.map((stat, index) => (
-              <div key={index} className="p-6 bg-white/5 rounded-xl border border-white/10">
-                <div className="text-3xl font-bold text-blue-400 mb-2">{stat.number}</div>
+              <div key={index} className="p-6 bg-white/5 rounded-xl border border-white/10 hover:border-amber-400/30 transition-colors">
+                <div className="text-3xl font-bold text-amber-400 mb-2">{stat.number}</div>
                 <div className="text-gray-300 text-sm">{stat.label}</div>
               </div>
             ))}
@@ -116,10 +127,10 @@ const AboutUs = () => {
             whileInView={{ opacity: 1 }}
             className="text-center mb-16"
           >
-            <UserGroupIcon className="h-12 w-12 text-red-500 mx-auto mb-4" />
-            <h2 className="text-3xl font-bold text-white mb-4">Our Team</h2>
+            <Users className="h-12 w-12 text-purple-400 mx-auto mb-4" />
+            <h2 className="text-3xl font-bold text-white mb-4">Master Craftsmen</h2>
             <p className="text-gray-300 max-w-2xl mx-auto">
-              A multidisciplinary team of cardiologists, data scientists, and healthcare professionals dedicated to heart health innovation.
+              A collective of visionaries, artisans, and perfectionists dedicated to exceeding your expectations
             </p>
           </motion.div>
 
@@ -129,11 +140,12 @@ const AboutUs = () => {
                 key={index}
                 initial={{ y: 50 }}
                 whileInView={{ y: 0 }}
-                className="p-6 bg-white/5 rounded-xl border border-white/10 hover:border-blue-400/30 transition-all"
+                className="p-6 bg-white/5 rounded-xl border border-white/10 hover:border-amber-400/30 transition-all group relative"
               >
-                <div className="h-48 w-full bg-blue-900/30 rounded-lg mb-4" />
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-amber-500/20 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl" />
+                <div className="h-48 w-full bg-amber-900/30 rounded-lg mb-4" />
                 <h3 className="text-xl font-semibold text-white mb-2">{member.name}</h3>
-                <p className="text-blue-400 mb-2">{member.role}</p>
+                <p className="text-purple-400 mb-2">{member.role}</p>
                 <p className="text-gray-300 text-sm">{member.exp}</p>
               </motion.div>
             ))}
@@ -149,43 +161,80 @@ const AboutUs = () => {
             whileInView={{ opacity: 1 }}
             className="text-center mb-16"
           >
-            <ChartBarIcon className="h-12 w-12 text-red-500 mx-auto mb-4" />
-            <h2 className="text-3xl font-bold text-white mb-4">Core Values</h2>
+            <Heart className="h-12 w-12 text-rose-400 mx-auto mb-4" />
+            <h2 className="text-3xl font-bold text-white mb-4">Our Promise</h2>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
             <motion.div
               initial={{ scale: 0.95 }}
               whileInView={{ scale: 1 }}
-              className="p-6 bg-white/5 rounded-xl border border-white/10"
+              className="p-6 bg-white/5 rounded-xl border border-white/10 hover:border-purple-400/30 transition-colors"
             >
-              <h3 className="text-xl font-semibold text-white mb-4">Patient First</h3>
+              <h3 className="text-xl font-semibold text-white mb-4">Uncompromised Quality</h3>
               <p className="text-gray-300">
-                Every algorithm and interface designed with patient well-being as the primary focus.
+                From venue selection to gemstone sourcing, we accept nothing less than perfection
               </p>
             </motion.div>
 
             <motion.div
               initial={{ scale: 0.95 }}
               whileInView={{ scale: 1 }}
-              className="p-6 bg-white/5 rounded-xl border border-white/10"
+              className="p-6 bg-white/5 rounded-xl border border-white/10 hover:border-amber-400/30 transition-colors"
             >
-              <h3 className="text-xl font-semibold text-white mb-4">Medical Integrity</h3>
+              <h3 className="text-xl font-semibold text-white mb-4">Bespoke Experiences</h3>
               <p className="text-gray-300">
-                All solutions validated by cardiologists and peer-reviewed research.
+                Every detail tailored to reflect your unique story and personality
               </p>
             </motion.div>
 
             <motion.div
               initial={{ scale: 0.95 }}
               whileInView={{ scale: 1 }}
-              className="p-6 bg-white/5 rounded-xl border border-white/10"
+              className="p-6 bg-white/5 rounded-xl border border-white/10 hover:border-rose-400/30 transition-colors"
             >
-              <h3 className="text-xl font-semibold text-white mb-4">Continuous Innovation</h3>
+              <h3 className="text-xl font-semibold text-white mb-4">End-to-End Excellence</h3>
               <p className="text-gray-300">
-                Daily updates to our models using the latest medical research data.
+                Seamless execution from first consultation to final curtain call
               </p>
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Timeline Section */}
+      <section className="py-20 px-6">
+        <div className="max-w-6xl mx-auto">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            className="text-center mb-16"
+          >
+            <Ticket className="h-12 w-12 text-amber-400 mx-auto mb-4" />
+            <h2 className="text-3xl font-bold text-white mb-4">Our Process</h2>
+          </motion.div>
+
+          <div className="relative">
+            <div className="absolute left-1/2 h-full w-0.5 bg-gradient-to-b from-purple-500 to-amber-500" />
+            {['Vision Casting', 'Design Alchemy', 'Precision Crafting', 'Grand Revelation'].map((step, index) => (
+              <motion.div
+                key={step}
+                initial={{ opacity: 0, x: index % 2 === 0 ? 50 : -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                className={`flex ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'} items-center mb-16`}
+              >
+                <div className="w-1/2 p-6">
+                  <div className="p-6 bg-white/5 rounded-xl border border-white/10">
+                    <div className="text-amber-400 text-lg font-semibold mb-2">Phase 0{index + 1}</div>
+                    <h3 className="text-xl text-white mb-2">{step}</h3>
+                    <p className="text-gray-300">Detailed description of {step.toLowerCase()} phase...</p>
+                  </div>
+                </div>
+                <div className="w-1/2 flex justify-center">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-amber-500 border-2 border-white" />
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>

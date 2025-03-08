@@ -11,19 +11,19 @@ import CommunityPage from './pages/CommunityPage';
 import NewPost from './components/Community/NewPost';
 import PostDetail from './components/Community/PostDetail';
 
-import PredictionPage from './pages/PredictionPage';
-
 import EventsPage from './pages/EventsPage';
 import EventDetailPage from './pages/EventDetailPage';
 import PaymentSummaryPage from './pages/PaymentSummaryPage';
 import PreBookPage from './pages/PreBookPage';
 import BookingConfirmed from './pages/BookingConfimred';
+import OrganizeRequest from './pages/OrganizeRequest';
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/organize" element={<OrganizeRequest />} />
         <Route path="/login-register" element={<LoginRegister />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/feedback" element={<FeedbackPage />} />
@@ -39,8 +39,6 @@ function App() {
         <Route path="/pre-book" element={<PreBookPage />} />
         <Route path="/payment" element={<PaymentSummaryPage />} />
         <Route path='/booking-confirmed' element={<BookingConfirmed />} />
-
-        <Route path="/predict" element={<PredictionPage />} />
 
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

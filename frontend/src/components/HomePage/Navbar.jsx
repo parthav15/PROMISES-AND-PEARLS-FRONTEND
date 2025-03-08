@@ -39,11 +39,11 @@ const Navbar = () => {
   const navLinks = [
     { name: "Home", path: "/", icon: <Gem size={18} /> },
     { name: "Events", path: "/events", icon: <Ticket size={18} /> },
-    { name: "Organize", path: "/organize" },
-    { name: "Community", path: "/community" },
-    { name: "Feedback", path: "/feedback" },
-    { name: "Contact", path: "/contact-us" },
-    { name: "About", path: "/about-us" },
+    { name: "Organize Request", path: "/organize", icon: <Gem size={18} /> },
+    { name: "Community", path: "/community", icon: <User size={18} /> },
+    { name: "Feedback", path: "/feedback", icon: <Moon size={18} /> },
+    { name: "Contact", path: "/contact-us", icon: <Gem size={18} /> },
+    { name: "About", path: "/about-us", icon: <Sun size={18} /> },
   ];
 
   const menuVariants = {

@@ -6,7 +6,7 @@ import Navbar from "../HomePage/Navbar";
 import Footer from "../HomePage/Footer";
 import { ToastContainer, toast } from "react-toastify";
 import { BASE_URL } from "../../config";
-import { HeartIcon, PhotoIcon } from "@heroicons/react/24/outline";
+import { Gem, Sparkles, ImageIcon } from "lucide-react";
 
 const API_URL = `${BASE_URL}/community/create_post/`;
 
@@ -48,7 +48,7 @@ export default function NewPost() {
             });
 
             if (response.data.success) {
-                toast.success("Post created successfully!", {
+                toast.success("Post shared successfully!", {
                     position: "top-right",
                     autoClose: 2000,
                     hideProgressBar: false,
@@ -72,14 +72,39 @@ export default function NewPost() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
-                className="min-h-screen bg-gradient-to-br from-blue-900 to-purple-900 flex flex-col justify-center items-center py-12"
+                className="min-h-screen bg-gradient-to-br from-slate-900 to-purple-900 flex flex-col justify-center items-center py-12 relative overflow-hidden"
             >
-                <div className="mt-18"/>
+                {/* Floating Gems Background */}
+                <div className="absolute inset-0 opacity-20">
+                    {[...Array(15)].map((_, i) => (
+                        <motion.div
+                            key={i}
+                            className="absolute w-2 h-2 bg-amber-400 rounded-full"
+                            animate={{
+                                x: [0, 100, 0],
+                                y: [0, 50, 0],
+                                opacity: [0, 0.5, 0],
+                                scale: [0, 1, 0],
+                            }}
+                            transition={{
+                                duration: Math.random() * 10 + 8,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                            }}
+                            style={{
+                                left: `${Math.random() * 100}%`,
+                                top: `${Math.random() * 100}%`,
+                                boxShadow: '0 0 15px rgba(245, 158, 11, 0.3)',
+                            }}
+                        />
+                    ))}
+                </div>
+
                 <motion.div
                     initial={{ opacity: 0, y: 50 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
-                    className="w-full max-w-2xl bg-white/5 backdrop-blur-lg p-8 rounded-xl border border-white/10 shadow-lg"
+                    className="w-full max-w-2xl bg-white/5 backdrop-blur-lg p-8 rounded-xl border border-white/10 shadow-lg relative z-10"
                 >
                     {/* Header */}
                     <motion.div
@@ -88,11 +113,13 @@ export default function NewPost() {
                         transition={{ duration: 0.5 }}
                         className="flex flex-col items-center mb-8"
                     >
-                        <HeartIcon className="h-10 w-10 text-red-500 mb-4" />
-                        <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-red-400 bg-clip-text text-transparent">
-                            Create a New Post
+                        <div className="p-3 bg-amber-400/20 rounded-xl mb-4">
+                            <Gem className="h-10 w-10 text-amber-400" strokeWidth={1.5} />
+                        </div>
+                        <h1 className="text-4xl font-bold bg-gradient-to-r from-amber-400 to-purple-400 bg-clip-text text-transparent">
+                            Craft Your Story
                         </h1>
-                        <p className="text-gray-300 mt-2">Share your thoughts with the CardioCareAI community</p>
+                        <p className="text-purple-200 mt-2">Share exquisite moments with the P&P Collective</p>
                     </motion.div>
 
                     {/* Form */}
@@ -107,7 +134,7 @@ export default function NewPost() {
                             <motion.p
                                 initial={{ opacity: 0, y: -10 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                className="text-red-400 text-sm text-center"
+                                className="text-rose-400 text-sm text-center"
                             >
                                 {error}
                             </motion.p>
@@ -115,40 +142,40 @@ export default function NewPost() {
 
                         {/* Title Input */}
                         <div>
-                            <label className="block text-gray-300 text-sm font-medium mb-2">Title</label>
+                            <label className="block text-purple-300 text-sm font-medium mb-2">Title</label>
                             <input
                                 type="text"
-                                placeholder="Enter post title"
+                                placeholder="A Night to Remember..."
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
                                 required
-                                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400/30 text-white placeholder-gray-400"
+                                className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400/30 text-white placeholder-purple-300/50 transition-all"
                             />
                         </div>
 
                         {/* Content Input */}
                         <div>
-                            <label className="block text-gray-300 text-sm font-medium mb-2">Content</label>
+                            <label className="block text-purple-300 text-sm font-medium mb-2">Narrative</label>
                             <textarea
-                                placeholder="Write your post content..."
+                                placeholder="Describe your unforgettable experience..."
                                 value={content}
                                 onChange={(e) => setContent(e.target.value)}
                                 required
                                 rows="6"
-                                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400/30 text-white placeholder-gray-400"
+                                className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400/30 text-white placeholder-purple-300/50 transition-all"
                             />
                         </div>
 
                         {/* Image Upload */}
                         <div>
-                            <label className="block text-gray-300 text-sm font-medium mb-2">Upload Image</label>
-                            <div className="flex items-center justify-center w-full bg-white/10 border border-white/20 rounded-lg p-4 hover:border-blue-400/30 transition-all">
-                                <PhotoIcon className="h-6 w-6 text-gray-400 mr-2" />
+                            <label className="block text-purple-300 text-sm font-medium mb-2">Capture the Moment</label>
+                            <div className="flex items-center justify-center w-full bg-white/5 border border-white/20 rounded-lg p-4 hover:border-amber-400/30 transition-all">
+                                <ImageIcon className="h-6 w-6 text-amber-400 mr-2" />
                                 <input
                                     type="file"
                                     accept="image/*"
                                     onChange={(e) => setImage(e.target.files[0])}
-                                    className="w-full text-gray-300 focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700"
+                                    className="w-full text-purple-200 focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-amber-600 file:text-white hover:file:bg-amber-700"
                                 />
                             </div>
                         </div>
@@ -158,9 +185,11 @@ export default function NewPost() {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             type="submit"
-                            className="w-full py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg text-white font-semibold hover:from-blue-700 hover:to-purple-700 transition-all"
+                            className="w-full py-3 bg-gradient-to-r from-amber-600 to-purple-600 rounded-lg text-white font-semibold hover:from-amber-700 hover:to-purple-700 transition-all relative overflow-hidden"
                         >
-                            Create Post
+                            <Sparkles className="w-5 h-5 absolute top-1/2 left-6 -translate-y-1/2 animate-pulse" />
+                            Publish Memory
+                            <Sparkles className="w-5 h-5 absolute top-1/2 right-6 -translate-y-1/2 animate-pulse" />
                         </motion.button>
                     </motion.form>
                 </motion.div>
@@ -176,8 +205,9 @@ export default function NewPost() {
                 pauseOnFocusLoss
                 draggable
                 pauseOnHover
-                toastStyle={{ backgroundColor: "#3B82F6", color: "white" }}
+                toastStyle={{ backgroundColor: "#F59E0B", color: "white" }}
             />
         </>
     );
 }
+

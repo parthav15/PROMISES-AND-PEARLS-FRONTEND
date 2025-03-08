@@ -5,12 +5,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from '../components/HomePage/Navbar';
 import Footer from '../components/HomePage/Footer';
-import { 
-  MapPinIcon,
-  EnvelopeIcon,
-  PhoneIcon,
-  HeartIcon
-} from "@heroicons/react/24/outline";
+import { Gem, Mail, Phone, MapPin, Sparkles } from 'lucide-react';
 
 const ContactusPage = () => {
     const navigate = useNavigate();
@@ -44,7 +39,7 @@ const ContactusPage = () => {
     }
 
     console.log('Contact form submitted:', formData);
-    toast.success('Your message has been sent!');
+    toast.success('Your message has been received!');
     setFormData({ name: '', email: '', subject: '', message: '' });
   };
 
@@ -59,7 +54,7 @@ const ContactusPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 to-purple-900 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex flex-col">
       <Navbar />
 
       <div className="my-12" />
@@ -68,75 +63,78 @@ const ContactusPage = () => {
         position="top-right"
         autoClose={2000}
         theme="dark"
-        toastStyle={{ backgroundColor: '#1e3a8a' }}
+        toastStyle={{ backgroundColor: '#1e293b' }}
       />
 
       <div className="flex-grow flex flex-col lg:flex-row items-center justify-center p-8 space-y-8 lg:space-y-0 lg:space-x-12">
         {/* Contact Form */}
         <motion.div
-          className="w-full lg:w-1/2 bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10"
+          className="w-full lg:w-1/2 bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 relative overflow-hidden"
           variants={formVariants}
           initial="hidden"
           animate="visible"
           transition={{ duration: 0.5 }}
         >
+          <div className="absolute -top-20 -right-20 w-40 h-40 bg-amber-400/20 rounded-full blur-3xl" />
           <div className="text-center mb-8">
-            <HeartIcon className="h-12 w-12 text-red-500 mx-auto mb-4" />
-            <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-red-400 bg-clip-text text-transparent">
-              Contact Our Team
+            <div className="inline-block p-4 mb-4 bg-amber-400/20 rounded-2xl">
+              <Gem className="h-12 w-12 text-amber-400 mx-auto" strokeWidth={1.5} />
+            </div>
+            <h2 className="text-4xl font-bold bg-gradient-to-r from-amber-400 to-purple-400 bg-clip-text text-transparent">
+              Enquire About Excellence
             </h2>
-            <p className="mt-2 text-gray-300">
-              Have questions? We're here to help with your cardiac care needs
+            <p className="mt-2 text-purple-200">
+              Let's create unforgettable moments together
             </p>
           </div>
           
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-4">
               <div>
-                <label className="block text-gray-300 mb-2">Full Name</label>
+                <label className="block text-purple-300 mb-2">Your Name</label>
                 <input
                   type="text"
                   name="name"
-                  placeholder="John Doe"
+                  placeholder="Elizabeth Windsor"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400/30 text-white placeholder-gray-400"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400/30 text-white placeholder-purple-300/50 transition-all"
                 />
               </div>
 
               <div>
-                <label className="block text-gray-300 mb-2">Email Address</label>
+                <label className="block text-purple-300 mb-2">Email Address</label>
                 <input
                   type="email"
                   name="email"
-                  placeholder="john@example.com"
+                  placeholder="elizabeth@royal.uk"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400/30 text-white placeholder-gray-400"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400/30 text-white placeholder-purple-300/50 transition-all"
                 />
               </div>
 
               <div>
-                <label className="block text-gray-300 mb-2">Subject</label>
+                <label className="block text-purple-300 mb-2">Subject</label>
                 <input
                   type="text"
                   name="subject"
-                  placeholder="Regarding Cardiac Care"
+                  placeholder="Regarding Your Grand Event"
                   value={formData.subject}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400/30 text-white placeholder-gray-400"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400/30 text-white placeholder-purple-300/50 transition-all"
                 />
               </div>
 
               <div>
-                <label className="block text-gray-300 mb-2">Message</label>
+                <label className="block text-purple-300 mb-2">Message</label>
                 <textarea
                   name="message"
-                  placeholder="How can we assist you?"
+                  placeholder="Describe your vision of perfection..."
                   value={formData.message}
                   onChange={handleInputChange}
                   rows="4"
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400/30 text-white placeholder-gray-400 resize-none"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400/30 text-white placeholder-purple-300/50 resize-none transition-all"
                 />
               </div>
             </div>
@@ -145,9 +143,11 @@ const ContactusPage = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               type="submit"
-              className="w-full py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all"
+              className="w-full py-3 bg-gradient-to-r from-amber-500 to-purple-600 text-white rounded-lg font-semibold hover:from-amber-600 hover:to-purple-700 transition-all relative overflow-hidden"
             >
-              Send Message
+              <Sparkles className="w-5 h-5 absolute top-2 left-4 animate-pulse" />
+              Send Enquiry
+              <Sparkles className="w-5 h-5 absolute top-2 right-4 animate-pulse" />
             </motion.button>
           </form>
         </motion.div>
@@ -160,40 +160,43 @@ const ContactusPage = () => {
           animate="visible"
           transition={{ duration: 0.5 }}
         >
-          <div className="bg-white/5 backdrop-blur-lg rounded-xl p-6 border border-white/10">
+          <div className="bg-white/5 backdrop-blur-lg rounded-xl p-6 border border-white/10 group relative overflow-hidden">
+            <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-purple-500/20 rounded-full blur-3xl" />
             <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
-              <MapPinIcon className="w-6 h-6 text-blue-400" />
-              Our Location
+              <MapPin className="w-6 h-6 text-amber-400" />
+              Global Ateliers
             </h3>
-            <p className="text-gray-300">
-              123 Cardiac Care Avenue<br/>
-              Health City, HC 12345<br/>
-              Punjab, India
-            </p>
-          </div>
-
-          <div className="bg-white/5 backdrop-blur-lg rounded-xl p-6 border border-white/10">
-            <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
-              <PhoneIcon className="w-6 h-6 text-blue-400" />
-              Contact Details
-            </h3>
-            <div className="space-y-2 text-gray-300">
-              <p>Emergency: +91 987 654 3210</p>
-              <p>General: +91 11 2345 6789</p>
-              <p>Fax: +91 11 2345 6790</p>
+            <div className="space-y-3 text-purple-200">
+              <p>16 Place Vendôme, 75001 Paris</p>
+              <p>5th Avenue, New York, NY 10018</p>
+              <p>Jewelers Lane, Jaipur 302001</p>
             </div>
           </div>
 
-          <div className="bg-white/5 backdrop-blur-lg rounded-xl p-6 border border-white/10">
+          <div className="bg-white/5 backdrop-blur-lg rounded-xl p-6 border border-white/10 group relative overflow-hidden">
+            <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-amber-400/20 rounded-full blur-3xl" />
             <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
-              <EnvelopeIcon className="w-6 h-6 text-blue-400" />
-              Email & Hours
+              <Phone className="w-6 h-6 text-amber-400" />
+              Concierge Services
             </h3>
-            <div className="space-y-2 text-gray-300">
-              <p>Support: support@cardiocare.ai</p>
-              <p>General: info@cardiocare.ai</p>
-              <p>Mon-Fri: 8AM - 8PM IST</p>
-              <p>Sat-Sun: 9AM - 5PM IST</p>
+            <div className="space-y-2 text-purple-200">
+              <p>VIP Line: +33 1 40 20 90 90</p>
+              <p>WhatsApp: +1 (212) 555-0199</p>
+              <p>Fax: +91 141 123 4567</p>
+            </div>
+          </div>
+
+          <div className="bg-white/5 backdrop-blur-lg rounded-xl p-6 border border-white/10 group relative overflow-hidden">
+            <div className="absolute -top-20 -right-20 w-40 h-40 bg-purple-500/20 rounded-full blur-3xl" />
+            <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+              <Mail className="w-6 h-6 text-amber-400" />
+              Correspondence
+            </h3>
+            <div className="space-y-2 text-purple-200">
+              <p>Enquiries: pearl@promises.co</p>
+              <p>Events: moments@promises.co</p>
+              <p>Mon-Sun: 24/7 Availability</p>
+              <p>By Appointment Only</p>
             </div>
           </div>
         </motion.div>
