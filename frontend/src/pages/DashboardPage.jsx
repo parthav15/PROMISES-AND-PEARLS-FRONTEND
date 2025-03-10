@@ -6,7 +6,6 @@ import Footer from '../components/HomePage/Footer';
 import Profile from '../components/Dashboard/Profile';
 import CommunityPosts from '../components/Dashboard/CommunityPosts';
 import SubmittedFeedbacks from '../components/Dashboard/SubmittedFeedbacks';
-import TicketVerify from '../components/Dashboard/TicketVerify';
 import SettingsPanel from '../components/Dashboard/SettingsPanel';
 import { BASE_URL } from '../config';
 
@@ -26,7 +25,7 @@ const DashboardPage = () => {
       case 'profile': return <Profile user={profileData} />;
       case 'posts': return <CommunityPosts />;
       case 'feedbacks': return <SubmittedFeedbacks />;
-      case 'verify': return <TicketVerify />;
+      // case 'verify': return <TicketVerify />;
       case 'settings': return <SettingsPanel />;
       default: return <Profile user={profileData} />;
     }
@@ -36,7 +35,7 @@ const DashboardPage = () => {
     { id: 'profile', icon: <User size={20} />, label: 'Profile' },
     { id: 'posts', icon: <MessageSquare size={20} />, label: 'Community Posts' },
     { id: 'feedbacks', icon: <AlertCircle size={20} />, label: 'My Feedbacks' },
-    { id: 'verify', icon: <Ticket size={20} />, label: 'Ticket Verification' },
+    // { id: 'verify', icon: <Ticket size={20} />, label: 'Ticket Verification' },
     { id: 'settings', icon: <Settings size={20} />, label: 'Account Settings' },
   ];
 
